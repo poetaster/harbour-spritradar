@@ -111,7 +111,7 @@ Dialog {
     }
     function getItemsByAddress(callback) {
         var req = new XMLHttpRequest()
-        req.open( "GET", "https://nominatim.openstreetmap.org/search/"+address+"?format=json&limit=1&accept-language="+countryCode+"&countrycodes="+countryCode )
+        req.open( "GET", "https://nominatim.openstreetmap.org/search?q="+address+"&format=json&limit=1&accept-language="+countryCode+"&countrycodes="+countryCode )
         req.setRequestHeader("user-agent", "harbour-spritradar/2.11")
         req.setRequestHeader("referer", "harbour-spritradar/2.11")
         req.onreadystatechange = function() {
