@@ -72,11 +72,11 @@ ApplicationWindow
             try {
                 switch( getValue( "plugin" ) ) {
                     case tk.name: selectedPlugin = tk; selectedPluginNum = 0; break
-                    case sv.name: selectedPlugin = sv; selectedPluginNum = 1; break
+                    //case sv.name: selectedPlugin = sv; selectedPluginNum = 1; break
                     case gg.name: selectedPlugin = gg; selectedPluginNum = 2;break
-                    case gf.name: selectedPlugin = gf; selectedPluginNum = 4;break
+                    //case gf.name: selectedPlugin = gf; selectedPluginNum = 4;break
                     case sr.name: selectedPlugin = sr; selectedPluginNum = 5; break
-                    default: selectedPlugin = tk;
+                    default: selectedPlugin = gg;
                 }
                 launchToList = getValue( "launchToList" )==1
                 favsOnCover  = getValue( "favsOnCover"  )==1
@@ -100,9 +100,9 @@ console.log(e.message)
     }
     property Plugin selectedPlugin;
     TankerKoenig { id: tk }
-    Sviluppoeconomico { id: sv }
+    //Sviluppoeconomico { id: sv }
     GeoportalGasolineras { id: gg }
-    PrixCarburants { id: gf }
+    //PrixCarburants { id: gf }
     SpritpreisRechner { id: sr }
     function changePlugin( plugin ) {
         plugin.pluginReady = false
@@ -120,10 +120,10 @@ console.log(e.message)
             text: tk.name
             onClicked: { changePlugin( tk ); selectedPluginNum = 0 }
         }
-        MenuItem {
-            text: sv.name
-            onClicked: { changePlugin( sv ); selectedPluginNum = 1 }
-        }
+//        MenuItem {
+//            text: sv.name
+//            onClicked: { changePlugin( sv ); selectedPluginNum = 1 }
+//        }
         MenuItem {
             text: gg.name
             onClicked: { changePlugin( gg ); selectedPluginNum = 2 }
@@ -132,10 +132,10 @@ console.log(e.message)
             text: sr.name
             onClicked: { changePlugin( sr ); selectedPluginNum = 3 }
         }
-        MenuItem {
-            text: gf.name
-            onClicked: { changePlugin( gf ); selectedPluginNum = 4 }
-        }
+//        MenuItem {
+//            text: gf.name
+//            onClicked: { changePlugin( gf ); selectedPluginNum = 4 }
+//        }
     }
 
     property bool gpsActive: false

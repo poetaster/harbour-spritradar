@@ -24,19 +24,19 @@
     </message>
     <message>
         <source>Set as Cover</source>
-        <translation type="unfinished">Configurado como Cover</translation>
+        <translation>Configurar como portada</translation>
     </message>
     <message>
         <source>Sort by</source>
-        <translation type="unfinished">Ordena por</translation>
+        <translation>Ordena por</translation>
     </message>
     <message>
         <source>Price</source>
-        <translation type="unfinished">Precio</translation>
+        <translation>Precio</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustes</translation>
     </message>
 </context>
 <context>
@@ -51,22 +51,22 @@
     </message>
     <message>
         <source>Coordinates Copied to Clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Coordenadas copiadas al portapapeles</translation>
     </message>
 </context>
 <context>
     <name>GeoportalGasolineras</name>
     <message>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Info</translation>
     </message>
     <message>
         <source>Opening Times</source>
-        <translation type="unfinished">Horario de apertura</translation>
+        <translation>Horario de apertura</translation>
     </message>
     <message>
         <source>Prices</source>
-        <translation type="unfinished">Precios</translation>
+        <translation>Precios</translation>
     </message>
 </context>
 <context>
@@ -109,34 +109,34 @@
     </message>
     <message>
         <source>Set as Cover</source>
-        <translation type="unfinished">Configurado como Cover</translation>
+        <translation>Configurar como portada</translation>
     </message>
 </context>
 <context>
     <name>MyGasFeed</name>
     <message>
         <source>Regular</source>
-        <translation type="unfinished"></translation>
+        <translation>Regular</translation>
     </message>
     <message>
         <source>Mid-Grade</source>
-        <translation type="unfinished"></translation>
+        <translation>Grado medio</translation>
     </message>
     <message>
         <source>Premium</source>
-        <translation type="unfinished"></translation>
+        <translation>Premium</translation>
     </message>
     <message>
         <source>Diesel</source>
-        <translation type="unfinished"></translation>
+        <translation>Diésel</translation>
     </message>
     <message>
         <source>Prices</source>
-        <translation type="unfinished">Precios</translation>
+        <translation>Precios</translation>
     </message>
     <message>
         <source>Updated</source>
-        <translation type="unfinished">Actualizado</translation>
+        <translation>Actualizado</translation>
     </message>
 </context>
 <context>
@@ -231,67 +231,51 @@
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Desactivado</translation>
     </message>
     <message>
         <source>Every %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Cada %1</translation>
     </message>
     <message numerus="yes">
         <source>%n Kilometers</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n kilómetro</numerusform>
+            <numerusform>%n kilómetros</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n Minutes</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n minuto</numerusform>
+            <numerusform>%n minutos</numerusform>
         </translation>
     </message>
     <message>
         <source>At distance</source>
-        <translation type="unfinished"></translation>
+        <translation>A una distancia</translation>
     </message>
     <message>
         <source>At time</source>
-        <translation type="unfinished"></translation>
+        <translation>A una hora</translation>
     </message>
     <message>
         <source>API Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Clave API</translation>
     </message>
 </context>
 <context>
     <name>PrixCarburants</name>
-    <message>
-        <source>Opening times</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Daily</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Except</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Prices</source>
-        <translation type="unfinished">Precios</translation>
-    </message>
-    <message>
-        <source>Services</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Gazole</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>SP95</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E10</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -307,7 +291,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>E10</source>
+        <source>Daily</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Except</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Opening times</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prices</source>
+        <translation>Precios</translation>
+    </message>
+    <message>
+        <source>Services</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -315,11 +315,11 @@
     <name>SettingsPage</name>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustes</translation>
     </message>
     <message>
         <source>TankerKoenig API key</source>
-        <translation type="unfinished"></translation>
+        <translation>Clave API de TankerKoenig</translation>
     </message>
 </context>
 <context>
@@ -358,22 +358,42 @@
     </message>
     <message>
         <source>Gas</source>
-        <translation type="unfinished"></translation>
+        <translation>Gas</translation>
     </message>
 </context>
 <context>
     <name>Sviluppoeconomico</name>
     <message>
-        <source>Info</source>
-        <translation>Información</translation>
+        <source>Benzina</source>
+        <translation></translation>
     </message>
     <message>
-        <source>Prices</source>
-        <translation>Precios</translation>
+        <source>Gasolio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Metano</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GPL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Benzina Special</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gasolio Special</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Serviced</source>
-        <translation>Servido</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Info</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Brand</source>
@@ -381,35 +401,15 @@
     </message>
     <message>
         <source>Off-Brand</source>
-        <translation>Sin marca</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Updated</source>
         <translation>Actualizado</translation>
     </message>
     <message>
-        <source>GPL</source>
-        <translation>(GPL)-Gas licuado del petróleo</translation>
-    </message>
-    <message>
-        <source>Benzina</source>
-        <translation>Gasolina</translation>
-    </message>
-    <message>
-        <source>Gasolio</source>
-        <translation>Gasóleo</translation>
-    </message>
-    <message>
-        <source>Metano</source>
-        <translation>Metano</translation>
-    </message>
-    <message>
-        <source>Gasolio Special</source>
-        <translation>Gasóleo especial</translation>
-    </message>
-    <message>
-        <source>Benzina Special</source>
-        <translation>Gasolina especial</translation>
+        <source>Prices</source>
+        <translation>Precios</translation>
     </message>
 </context>
 <context>

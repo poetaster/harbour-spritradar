@@ -111,7 +111,7 @@ Dialog {
     }
     function getItemsByAddress(callback) {
         var req = new XMLHttpRequest()
-        req.open( "GET", "https://nominatim.openstreetmap.org/search/"+address+"?format=json&limit=1&accept-language="+countryCode+"&countrycodes="+countryCode )
+        req.open( "GET", "https://nominatim.openstreetmap.org/search?q="+address+"&format=json&limit=1&accept-language="+countryCode+"&countrycodes="+countryCode )
         req.setRequestHeader("user-agent", "harbour-spritradar/2.11")
         req.setRequestHeader("referer", "harbour-spritradar/2.11")
         req.onreadystatechange = function() {
@@ -282,6 +282,7 @@ console.log(e.message)
             Item {
                 width: parent.width
                 height: apiKey.height
+                visible: selectedPlugin==tk
                 TextField {
                     id: apiKey
                     placeholderText: qsTr("API Key")
@@ -368,6 +369,7 @@ console.log(e.message)
             }
 
             ComboBox {
+                //id:comboxPlugin
                 width: page.width-2*x
                 x: Theme.horizontalPageMargin
                 label: qsTr("Plugin")

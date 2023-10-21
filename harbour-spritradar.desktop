@@ -6,5 +6,7 @@ Exec=harbour-spritradar
 Name=SpritRadar
 
 [X-Sailjail]
-Sandboxing=Disabled
+OrganizationName=harbour-spritradar
+ApplicationName=harbour-spritradar
+Permissions=Privileged;UserDirs;Location;Internet
 
