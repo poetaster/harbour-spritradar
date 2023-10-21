@@ -282,6 +282,7 @@ console.log(e.message)
             Item {
                 width: parent.width
                 height: apiKey.height
+                visible: selectedPlugin==tk
                 TextField {
                     id: apiKey
                     placeholderText: qsTr("API Key")
@@ -368,6 +369,7 @@ console.log(e.message)
             }
 
             ComboBox {
+                //id:comboxPlugin
                 width: page.width-2*x
                 x: Theme.horizontalPageMargin
                 label: qsTr("Plugin")
