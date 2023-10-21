@@ -6,6 +6,7 @@
 Name:       harbour-spritradar
 
 # >> macros
+%define _binary_payload w2.xzdio
 # << macros
 
 %{!?qtc_qmake:%define qtc_qmake %qmake}
@@ -14,7 +15,7 @@ Name:       harbour-spritradar
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 
 Summary:    A Gas price comparison app
-Version:    0.2.1
+Version:    0.2.2
 Release:    1
 Group:      Qt/Qt
 License:    MIT
