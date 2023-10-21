@@ -76,7 +76,7 @@ ApplicationWindow
                     case gg.name: selectedPlugin = gg; selectedPluginNum = 2;break
                     case gf.name: selectedPlugin = gf; selectedPluginNum = 4;break
                     case sr.name: selectedPlugin = sr; selectedPluginNum = 5; break
-                    default: selectedPlugin = tk;
+                    default: selectedPlugin = gg;
                 }
                 launchToList = getValue( "launchToList" )==1
                 favsOnCover  = getValue( "favsOnCover"  )==1
