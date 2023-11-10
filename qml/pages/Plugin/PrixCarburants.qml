@@ -12,7 +12,7 @@ Plugin {
     //property string url: "http://harbour-spritradar-fork.w4f.eu/fr/"
     property string url: "https://api.prix-carburants.2aaz.fr"
     type: "e10"
-    types: ["Gazole", "SP95", "E10", "E85", "GPLc", "SP98"]
+    types: ["Gazole", "SP95", "SP95-E10", "E85", "GPLc", "SP98"]
     names: [qsTr("Gazole"), qsTr("SP95"), qsTr("E10"), qsTr("E85"), qsTr("GPLc"), qsTr("SP98")]
 
     settings: Settings {
@@ -67,25 +67,26 @@ console.log(e.message)
         coverItems.clear()
         var req = new XMLHttpRequest()
         // search radius is now via a header  -H 'Range: m=5000-7000'
-        req.open( "GET", url+"/stations/around/"+lat+","+lng+"?types=R,A&responseFields=Price")
-
+        req.open( "GET", url+"/stations/around/"+lat+","+lng+"?types=R,A&responseFields=Fules,Price")
+        req.setRequestHeader("Range", "m=100-"+searchRadius)
         req.onreadystatechange = function() {
             if( req.readyState == 4 ) {
                 try {
                     var x = JSON.parse( req.responseText )
                     for( var i = 0; i < x.length; i++ ) {
                         var o = x[i]
+                        console.log(JSON.parse(o))
                         var price = { price:0 }
-                        for( var j = 0; j < o.prices.length; j++ ) {
-                            if( o.prices[j].id == type ) price = o.prices[j]
+                        for( var j = 0; j < o.Fuels.length; j++ ) {
+                            if( o.Fuels[j].short_name == type ) price = o.Fuels[j]["Price"]["value"]
                         }
                         if( price.price == 0 ) continue
                         var itm = {
                             "stationID": o.id,
-                            "stationName": o.adresse,
+                            "stationName": o.name,
                             "stationPrice": price.price,
-                            "stationAdress": o.adresse,
-                            "stationDistance": o.distance*1000,
+                            "stationAdress": o["Address"]["street_line"],
+                            "stationDistance": o.distance,
                             "customMessage": false
                         }
                         items.append( itm )
