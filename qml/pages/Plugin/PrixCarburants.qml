@@ -133,13 +133,13 @@ console.log(e.message)
         stationPage = pageStack.push( "../GasStation.qml", {stationId:id} )
         var req = new XMLHttpRequest()
         req.open( "GET", url+"/station/"+id )
+        req.setRequestHeader("accept", "application/json")
         req.onreadystatechange = function() {
             if( req.readyState == 4 ) {
                 try {
 
                     var st = JSON.parse( req.responseText )
                     var price = []; var service = []
-                    console.log(st[0])
                     /*for( var j = 0; j < st.prices.length; j++ ) {
                         try {
                             price[price.length] = { "title":qsTr(names[types.indexOf(st.prices[j].id)]), "price":st.prices[j].price, "sz":Theme.fontSizeLarge, "tf":true }
@@ -147,15 +147,27 @@ console.log(e.message)
                             console.log( JSON.stringify(st))
                         }
                     }*/
-                    for( j = 0; j < st["Services"].length; j++ ) {
-                        service[j] = { title:"", text:st["Services"][j] }
+                    for( var j = 0; j < st.Fuels.length; j++ ) {
+                        try {
+                            price[price.length] =  {
+                                "title":st.Fuels[j]["short_name"],
+                                "price":st.Fuels[j]["Price"].value,
+                                "sz":Theme.fontSizeLarge,  "tf":true }
+                           } catch( ex ) {
+                            console.log( JSON.stringify(st))
+                        }
+                    }
+
+                    for(var j = 0; j < st["Services"].length; j++ ) {
+                        var entry  = { title:"", text:st["Services"][j] }
+                        service.push(entry)
                     }
                     var optimes = [
                                  { title:qsTr("Daily"),
-                                 "text":st["Hours"]["Days"][0]["Timeslots"][0].opening_time+"-"+st["Hours"]["Days"][0]["Timeslots"][0].closing_time },
+                                 "text":st["Hours"]["Days"][0]["TimeSlots"][0].opening_time+"-"+st["Hours"]["Days"][0]["TimeSlots"][0].closing_time },
                                  { title:qsTr("Except"), "text": "-" } ]
                     station = {
-                       "stationName": o["Brand"]["name"],
+                       "stationName": st["Brand"]["name"],
                         "stationID":st.id,
                         "stationAdress": {
                             "street": st["Address"]["street_line"],

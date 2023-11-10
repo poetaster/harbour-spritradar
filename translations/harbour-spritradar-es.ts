@@ -310,6 +310,14 @@
         <source>Services</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Closed</source>
+        <translation type="unfinished">Cerrado</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Abierto</translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>

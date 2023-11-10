@@ -310,6 +310,14 @@
         <source>E10</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Closed</source>
+        <translation type="unfinished">Geschlossen</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Geöffnet</translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
