@@ -102,7 +102,7 @@ console.log(e.message)
     TankerKoenig { id: tk }
     //Sviluppoeconomico { id: sv }
     GeoportalGasolineras { id: gg }
-    //PrixCarburants { id: gf }
+    PrixCarburants { id: gf }
     SpritpreisRechner { id: sr }
     function changePlugin( plugin ) {
         plugin.pluginReady = false
@@ -132,10 +132,10 @@ console.log(e.message)
             text: sr.name
             onClicked: { changePlugin( sr ); selectedPluginNum = 3 }
         }
-//        MenuItem {
-//            text: gf.name
-//            onClicked: { changePlugin( gf ); selectedPluginNum = 4 }
-//        }
+        MenuItem {
+            text: gf.name
+            onClicked: { changePlugin( gf ); selectedPluginNum = 4 }
+        }
     }
 
     property bool gpsActive: false

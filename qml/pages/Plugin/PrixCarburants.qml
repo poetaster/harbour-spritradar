@@ -15,6 +15,11 @@ Plugin {
     types: ["Gazole", "SP95", "SP95-E10", "E85", "GPLc", "SP98"]
     names: [qsTr("Gazole"), qsTr("SP95"), qsTr("E10"), qsTr("E85"), qsTr("GPLc"), qsTr("SP98")]
 
+    function betweenHours(h0, h1) {
+      var now = new Date();
+      var mins = now.getHours()*60 + now.getMinutes();
+      return toMins(h0) <= mins && mins <= toMins(h1);
+    }
     settings: Settings {
         name: "PrixCarburants"
 
@@ -65,29 +70,41 @@ console.log(e.message)
         itemsBusy = true
         items.clear()
         coverItems.clear()
+        var now = new Date();
         var req = new XMLHttpRequest()
         // search radius is now via a header  -H 'Range: m=5000-7000'
-        req.open( "GET", url+"/stations/around/"+lat+","+lng+"?types=R,A&responseFields=Fules,Price")
-        req.setRequestHeader("Range", "m=100-"+searchRadius)
+        req.open( "GET", url+"/stations/around/"+lat+","+lng+"?types=R,A&responseFields=Fuels,Price,Hours")
+        req.setRequestHeader("accept", "application/json")
+        req.setRequestHeader("Range", "m=100-"+searchRadius*1000)
         req.onreadystatechange = function() {
             if( req.readyState == 4 ) {
                 try {
                     var x = JSON.parse( req.responseText )
                     for( var i = 0; i < x.length; i++ ) {
                         var o = x[i]
-                        console.log(JSON.parse(o))
-                        var price = { price:0 }
+                        var price = 0
+                        var open = false
                         for( var j = 0; j < o.Fuels.length; j++ ) {
-                            if( o.Fuels[j].short_name == type ) price = o.Fuels[j]["Price"]["value"]
+                            console.log(o.Fuels[0]["short_name"])
+                            if( o.Fuels[j]["short_name"] == type ) {
+                                price = o.Fuels[j]["Price"]["value"]
+                            }
                         }
-                        if( price.price == 0 ) continue
+                        if( o.Hours["Days"][now.getDay()]["status"] == "open" ) open = true
+                        for( var j = 0; j < o.Hours.length; j++ ) {
+                            if( o.Hours["Days"][now.getDay()]["status"] == "open" ) {
+                                console.log(o.Hours[0]["Days"]["Timeslots"])
+                                open = true
+                            }
+                        }
+                        if( price == 0 ) continue
                         var itm = {
                             "stationID": o.id,
                             "stationName": o.name,
-                            "stationPrice": price.price,
+                            "stationPrice": price,
                             "stationAdress": o["Address"]["street_line"],
                             "stationDistance": o.distance,
-                            "customMessage": false
+                            "customMessage": !open?qsTr("Closed"):gsTr("Open")
                         }
                         items.append( itm )
                     }
