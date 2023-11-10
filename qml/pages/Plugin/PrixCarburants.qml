@@ -9,7 +9,8 @@ Plugin {
     description: "https://www.prix-carburants.gouv.fr/"
     units: { "currency":"€", "distance": "km" }
     countryCode: "fr"
-    property string url: "http://harbour-spritradar-fork.w4f.eu/fr/"
+    //property string url: "http://harbour-spritradar-fork.w4f.eu/fr/"
+    property string url: "https://api.prix-carburants.2aaz.fr"
     type: "e10"
     types: ["Gazole", "SP95", "E10", "E85", "GPLc", "SP98"]
     names: [qsTr("Gazole"), qsTr("SP95"), qsTr("E10"), qsTr("E85"), qsTr("GPLc"), qsTr("SP98")]
@@ -65,7 +66,9 @@ console.log(e.message)
         items.clear()
         coverItems.clear()
         var req = new XMLHttpRequest()
-        req.open( "GET", url+"?get=stations&lat="+lat+"&lng="+lng+"&radius="+searchRadius )
+        // search radius is now via a header  -H 'Range: m=5000-7000'
+        req.open( "GET", url+"/stations/around/"+lat+","+lng+"?types=R,A&responseFields=Price")
+
         req.onreadystatechange = function() {
             if( req.readyState == 4 ) {
                 try {
@@ -107,7 +110,7 @@ console.log(e.message)
         station = {}
         stationPage = pageStack.push( "../GasStation.qml", {stationId:id} )
         var req = new XMLHttpRequest()
-        req.open( "GET", url+"?get=station&id="+id )
+        req.open( "GET", url+"/station/"+id )
         req.onreadystatechange = function() {
             if( req.readyState == 4 ) {
                 try {
@@ -155,7 +158,7 @@ console.log(e.message)
 
     function getPriceForFav( id ) {
         var req = new XMLHttpRequest()
-        req.open( "GET", url+"?get=station&id="+id )
+        req.open( "GET", url+"/station/"+id )
         req.onreadystatechange = function() {
             if( req.readyState == 4 ) {
                 try {
