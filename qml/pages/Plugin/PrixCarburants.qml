@@ -70,7 +70,8 @@ console.log(e.message)
         itemsBusy = true
         items.clear()
         coverItems.clear()
-        var now = new Date();
+        var now = new Date()
+        var day = now.getDay()
         var req = new XMLHttpRequest()
         // search radius is now via a header  -H 'Range: m=5000-7000'
         req.open( "GET", url+"/stations/around/"+lat+","+lng+"?types=R,A&responseFields=Fuels,Price,Hours")
@@ -84,27 +85,30 @@ console.log(e.message)
                         var o = x[i]
                         var price = 0
                         var open = false
+                        console.log(o.type)
                         for( var j = 0; j < o.Fuels.length; j++ ) {
-                            console.log(o.Fuels[0]["short_name"])
+                            //console.log(o.Fuels[0]["short_name"])
                             if( o.Fuels[j]["short_name"] == type ) {
                                 price = o.Fuels[j]["Price"]["value"]
                             }
                         }
-                        if( o.Hours["Days"][now.getDay()]["status"] == "open" ) open = true
-                        for( var j = 0; j < o.Hours.length; j++ ) {
-                            if( o.Hours["Days"][now.getDay()]["status"] == "open" ) {
-                                console.log(o.Hours[0]["Days"]["Timeslots"])
+                        try {
+                            if( o.Hours["Days"][day-1]["status"] == "open" ) {
                                 open = true
                             }
+                        } catch(e) {
+                            console.log(e.message)
                         }
-                        if( price == 0 ) continue
+
+                        if( price == 0 || open == false) continue
+
                         var itm = {
                             "stationID": o.id,
-                            "stationName": o.name,
+                            "stationName": o["Brand"]["name"],
                             "stationPrice": price,
                             "stationAdress": o["Address"]["street_line"],
                             "stationDistance": o.distance,
-                            "customMessage": !open?qsTr("Closed"):gsTr("Open")
+                            "customMessage": !open?qsTr("Closed"):qsTr("Open")
                         }
                         items.append( itm )
                     }
@@ -132,28 +136,33 @@ console.log(e.message)
         req.onreadystatechange = function() {
             if( req.readyState == 4 ) {
                 try {
+
                     var st = JSON.parse( req.responseText )
                     var price = []; var service = []
-                    for( var j = 0; j < st.prices.length; j++ ) {
+                    console.log(st[0])
+                    /*for( var j = 0; j < st.prices.length; j++ ) {
                         try {
                             price[price.length] = { "title":qsTr(names[types.indexOf(st.prices[j].id)]), "price":st.prices[j].price, "sz":Theme.fontSizeLarge, "tf":true }
                            } catch( ex ) {
                             console.log( JSON.stringify(st))
                         }
+                    }*/
+                    for( j = 0; j < st["Services"].length; j++ ) {
+                        service[j] = { title:"", text:st["Services"][j] }
                     }
-                    for( j = 0; j < st.services.length; j++ ) {
-                        service[service.length] = { title:"",text:st.services[j] }
-                    }
-                    var optimes = st.openingtimes.length>0?[ {title:qsTr("Daily"), "text":st.openingtimes[0].from+"-"+st.openingtimes[0].to }, {title:qsTr("Except"), "text":st.openingtimes[0].except?st.openingtimes[0].except:"-" } ]: []
+                    var optimes = [
+                                 { title:qsTr("Daily"),
+                                 "text":st["Hours"]["Days"][0]["Timeslots"][0].opening_time+"-"+st["Hours"]["Days"][0]["Timeslots"][0].closing_time },
+                                 { title:qsTr("Except"), "text": "-" } ]
                     station = {
+                       "stationName": o["Brand"]["name"],
                         "stationID":st.id,
-                        "stationName":st.adresse,
                         "stationAdress": {
-                            "street": st.adresse,
-                            "county":st.ville,
+                            "street": st["Address"]["street_line"],
+                            "county": st["Address"]["city_line"],
                             "country":"",//country,
-                            "latitude":st.latitude,
-                            "longitude":st.longitude
+                            "latitude":st["Coordinates"]["latitude"],
+                            "longitude":st["Coordinates"]["longitude"],
                         },
                         "content": [
                             { "title":qsTr("Opening times"), "items":optimes },
