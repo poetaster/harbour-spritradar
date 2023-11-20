@@ -85,7 +85,7 @@ console.log(e.message)
                         var o = x[i]
                         var price = 0
                         var open = false
-                        console.log(o.type)
+                        //console.log(o.type)
                         for( var j = 0; j < o.Fuels.length; j++ ) {
                             //console.log(o.Fuels[0]["short_name"])
                             if( o.Fuels[j]["short_name"] == type ) {
@@ -138,7 +138,7 @@ console.log(e.message)
             if( req.readyState == 4 ) {
                 try {
                     var st = JSON.parse( req.responseText )
-                    console.log( JSON.stringify(st))
+                    //console.log( JSON.stringify(st))
                     var price = []; var service = []
                     /*for( var j = 0; j < st.prices.length; j++ ) {
                         try {

@@ -15,7 +15,7 @@ Name:       harbour-spritradar
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 
 Summary:    A Gas price comparison app
-Version:    0.2.2
+Version:    0.2.3
 Release:    1
 Group:      Qt/Qt
 License:    MIT
