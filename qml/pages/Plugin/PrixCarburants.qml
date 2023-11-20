@@ -137,8 +137,8 @@ console.log(e.message)
         req.onreadystatechange = function() {
             if( req.readyState == 4 ) {
                 try {
-
                     var st = JSON.parse( req.responseText )
+                    console.log( JSON.stringify(st))
                     var price = []; var service = []
                     /*for( var j = 0; j < st.prices.length; j++ ) {
                         try {
@@ -198,14 +198,20 @@ console.log(e.message)
     function getPriceForFav( id ) {
         var req = new XMLHttpRequest()
         req.open( "GET", url+"/station/"+id )
+        req.setRequestHeader("accept", "application/json")
         req.onreadystatechange = function() {
             if( req.readyState == 4 ) {
                 try {
-                    var o = JSON.parse( req.responseText )
                     var price = 0
-                        for( var j = 0; j < o.prices.length; j++ ) {
-                            if( o.prices[j].id == type ) price = o.prices[j].price
+                    var st = JSON.parse( req.responseText )
+                    for( var j = 0; j < st.Fuels.length; j++ ) {
+                        try {
+                            price = st.Fuels[j]["Price"].value;
+
+                           } catch( ex ) {
+                            console.log( JSON.stringify(st))
                         }
+                    }
                     if( price == 0) return
                     setPriceForFav( id, price )
                 }
