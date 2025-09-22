@@ -275,16 +275,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Except</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Prices</source>
         <translation type="unfinished">Preise</translation>
-    </message>
-    <message>
-        <source>Services</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Gazole</source>

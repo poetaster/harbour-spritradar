@@ -295,20 +295,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Except</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Opening times</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Prices</source>
         <translation>Precios</translation>
-    </message>
-    <message>
-        <source>Services</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Closed</source>
