@@ -32,7 +32,7 @@ Page {
             height: Theme.itemSizeSmall + ( favMenu.parentItem == this ? favMenu.height : 0 )
             onPressAndHold: if( selectedPlugin.supportsFavs ) favMenu._showI( this, this )
             onClicked: {
-                selectedPlugin.requestStation( stId )
+                selectedPlugin.requestStation( stId, stationName )
             }
         }
         PullDownMenu {

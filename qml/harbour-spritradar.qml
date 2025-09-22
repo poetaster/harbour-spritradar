@@ -16,6 +16,7 @@ ApplicationWindow
         else if( !selectedPlugin.pluginReady ) { selectedPlugin.prepare() }
 
     }
+
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
 
     PositionSource {

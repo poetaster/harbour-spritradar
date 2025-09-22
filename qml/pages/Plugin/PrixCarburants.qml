@@ -6,7 +6,7 @@ Plugin {
     id: page
 
     name: "FR - Prix Carburants"
-    description: "https://www.prix-carburants.gouv.fr/"
+    description: "https://www.prix-carburants.2aaz.fr/"
     units: { "currency":"€", "distance": "km" }
     countryCode: "fr"
     //property string url: "http://harbour-spritradar-fork.w4f.eu/fr/"
@@ -74,7 +74,7 @@ console.log(e.message)
         var day = now.getDay()
         var req = new XMLHttpRequest()
         // search radius is now via a header  -H 'Range: m=5000-7000'
-        req.open( "GET", url+"/stations/around/"+lat+","+lng+"?types=R,A&responseFields=Fuels,Price,Hours")
+        req.open( "GET", url+"/stations/around/"+lat+","+lng+"?types=,R,A&responseFields=Fuels,Price,Hours")
         req.setRequestHeader("accept", "application/json")
         req.setRequestHeader("Range", "m=100-"+searchRadius*1000)
         req.onreadystatechange = function() {
@@ -85,10 +85,11 @@ console.log(e.message)
                         var o = x[i]
                         var price = 0
                         var open = false
-                        //console.log(o.type)
+
+                        console.log(o.type)
+
                         for( var j = 0; j < o.Fuels.length; j++ ) {
-                            //console.log(o.Fuels[0]["short_name"])
-                            if( o.Fuels[j]["short_name"] == type ) {
+                            if( o.Fuels[j]["shortName"] == type ) {
                                 price = o.Fuels[j]["Price"]["value"]
                             }
                         }
@@ -100,7 +101,8 @@ console.log(e.message)
                             console.log(e.message)
                         }
 
-                        if( price == 0 || open == false) continue
+                        //if( price == 0 || open == false) continue
+                        if( price == 0 ) continue
 
                         var itm = {
                             "stationID": o.id,
@@ -127,19 +129,19 @@ console.log(e.message)
         req.send()
     }
 
-    function requestStation( id ) {
+    function requestStation( id, stationName ) {
         stationBusy = true
         station = {}
         stationPage = pageStack.push( "../GasStation.qml", {stationId:id} )
         var req = new XMLHttpRequest()
-        req.open( "GET", url+"/station/"+id )
+        req.open( "GET", url+"/station/"+id+"?opendata=v1" )
         req.setRequestHeader("accept", "application/json")
         req.onreadystatechange = function() {
             if( req.readyState == 4 ) {
                 try {
                     var st = JSON.parse( req.responseText )
                     //console.log( JSON.stringify(st))
-                    var price = []; var service = []
+                    var price = []; var service = []; var days = [];
                     /*for( var j = 0; j < st.prices.length; j++ ) {
                         try {
                             price[price.length] = { "title":qsTr(names[types.indexOf(st.prices[j].id)]), "price":st.prices[j].price, "sz":Theme.fontSizeLarge, "tf":true }
@@ -147,39 +149,59 @@ console.log(e.message)
                             console.log( JSON.stringify(st))
                         }
                     }*/
-                    for( var j = 0; j < st.Fuels.length; j++ ) {
+                    for( var j = 0; j < st.prix.length; j++ ) {
                         try {
                             price[price.length] =  {
-                                "title":st.Fuels[j]["short_name"],
-                                "price":st.Fuels[j]["Price"].value,
+                                "title":st.prix[j]["nom"],
+                                "price":st.prix[j]["valeur"],
                                 "sz":Theme.fontSizeLarge,  "tf":true }
                            } catch( ex ) {
-                            console.log( JSON.stringify(st))
+                            console.log( JSON.stringify(price))
                         }
                     }
 
-                    for(var j = 0; j < st["Services"].length; j++ ) {
+                    /*for(var j = 0; j < st["Services"].length; j++ ) {
                         var entry  = { title:"", text:st["Services"][j] }
                         service.push(entry)
-                    }
-                    var optimes = [
+                    }*/
+                    var optimes = []
+                    if ( st["horaires"]["automate-24-24"] && st["horaires"]["automate-24-24"] ==="1") {
+                       optimes = [ {title:qsTr("Daily") , text:"00.00-23.59"} ]
+                    } else {
+                        for( var i = 0; i < 7; i++ ) {
+                            try {
+                                optimes[optimes.length] =  {
+                                    "title":st["horaires"]["jour"][i].nom,
+                                    "text":
+                                    st["horaires"]["jour"][i].horaire[0]["ouverture"] + " - " + st["horaires"]["jour"][i].horaire[0]["fermeture"],
+                                     }
+                               } catch( ex ) {
+                                console.log( JSON.stringify(optimes))
+                            }
+                        }
+                     /*optimes = [
                                  { title:qsTr("Daily"),
-                                 "text":st["Hours"]["Days"][0]["TimeSlots"][0].opening_time+"-"+st["Hours"]["Days"][0]["TimeSlots"][0].closing_time },
-                                 { title:qsTr("Except"), "text": "-" } ]
+                                 "text":st["horaires"]["jour"][0].horaire["ouverture"]+"-"+st["horaires"]["jour"][0].horaire["fermeture"] ,
+                                  title:qsTr("Except"), "text": "-" }
+                     ]*/
+                    }
+
+                    console.log( JSON.stringify(st["horaires"]))
+
                     station = {
-                       "stationName": st["Brand"]["name"],
+                       "stationName": stationName, //st["id"],
                         "stationID":st.id,
                         "stationAdress": {
-                            "street": st["Address"]["street_line"],
-                            "county": st["Address"]["city_line"],
+                            "street": st.adresse,
+                            "county": st.ville,
                             "country":"",//country,
-                            "latitude":st["Coordinates"]["latitude"],
-                            "longitude":st["Coordinates"]["longitude"],
+                            "latitude":st["latitude"],
+                            "longitude":st["longitude"],
                         },
                         "content": [
-                            { "title":qsTr("Opening times"), "items":optimes },
                             { "title":qsTr("Prices"), "items": price },
-                            { "title":qsTr("Services"), "items": service },
+                            { "title":qsTr("Opening times"), "items":optimes },
+                            //{ "title":qsTr("Services"), "items": service },
                         ]
                     }
                 }
